@@ -17,5 +17,5 @@ before_script:
 
 script:
   - cd colorprint
-  - gcc -o color colorprint.c colorprint.h
+  - gcc -o color color.c color.h
   - ./color
