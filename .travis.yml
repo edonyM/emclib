@@ -16,10 +16,6 @@ install: true
 before_script:
 
 script:
-    - ./configure >> LOG 2>&1
-    - make >> LOG 2>&1
-    - make check >> LOG 2>&1
-
-after_success:
-    - cat LOG
-
+    - ./configure
+    - make
+    - make check
