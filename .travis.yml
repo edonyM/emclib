@@ -1,4 +1,4 @@
-language: cpp
+language: c
 compiler:
   - gcc
 
@@ -11,11 +11,15 @@ addons:
   apt:
     packages:
 
-install: true
+install: make get-deps
 
 before_script:
 
 script:
-  - cd colorprint
-  - gcc -o color color.c color.h
-  - ./color
+    - ./configure >> LOG 2>&1
+    - make >> LOG 2>&1
+    - make check >> LOG 2>&1
+
+after_success:
+    - cat LOG
+
