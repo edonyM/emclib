@@ -11,7 +11,7 @@ addons:
   apt:
     packages:
 
-install: make
+install: true
 
 before_script:
 
