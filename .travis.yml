@@ -11,7 +11,7 @@ addons:
   apt:
     packages:
 
-install: make get-deps
+install: make
 
 before_script:
 
