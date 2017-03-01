@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdarg.h>
 
-#include "color.h"
+#include <include/color.h>
 
 #define NONE          "\033[m"
 #define RED           "\033[0;32;31m"
@@ -38,7 +39,10 @@ enum color {red,
             white};
 
 int color_id(const char *color) {
-    char **color_name = {"red", "light_red", "green", "light_green", "blue", "light_blue", "dary_gray", "cyan", "light_cyan", "purple", "light_purple", "brown", "yellow", "light_gray", "white"};
+    char *color_name[20] = {"red", "light_red", "green", "light_green",
+                            "blue", "light_blue", "dary_gray", "cyan",
+                            "light_cyan", "purple", "light_purple",
+                            "brown", "yellow", "light_gray", "white"};
     int id = -1;
     for (int i = 0; i < 15; ++i) {
         id = strcmp(color, *(color_name+i));
@@ -52,7 +56,7 @@ int color_id(const char *color) {
     return -1;
 }
 
-int cprintf(const char *color, const char *fmt, ...) {
+int cprintf(const char *color, const char *fmt) {
     int id = -1;
     id = color_id(color);
     switch(id) {
@@ -104,11 +108,13 @@ int cprintf(const char *color, const char *fmt, ...) {
         default:
             printf(NONE);
     }
-    printf(fmt);
+    puts(fmt);
     printf(NONE);
+
+    return id;
 }
 
 
-int main() {
-    cprintf("red", "%s", "edony?");
-}
+/*int main() {
+    cprintf("red", "edony?");
+}*/

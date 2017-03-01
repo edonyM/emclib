@@ -6,6 +6,6 @@ void greenprintf(const char * formated_str);
 void blueprintf(const char * formated_str);
 */
 
-int cprintf(const char *color, const char *fmt, ...);
+int cprintf(const char *color, const char *fmt);
 
 #endif
