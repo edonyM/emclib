@@ -19,6 +19,6 @@ install: true
 before_script:
 
 script:
-    - ./configure
+    - ./bootstrap && ./configure
     - make
     - make check

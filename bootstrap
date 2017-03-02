@@ -1,0 +1,27 @@
+#!/bin/sh
+set -e
+
+if [ ! -f filelist ]; then
+    echo `ls ./` > filelist
+fi
+if [ -f Makefile ]; then
+    make clean
+    make distclean
+    ./cleanup
+fi
+
+
+printf "Running libtoolize......\n"
+libtoolize --install
+
+printf "Running aclocal......\n"
+aclocal
+
+printf "Running autoconf......\n"
+autoconf
+
+printf "Running autoheader......\n"
+autoheader
+
+printf "Running automake......\n"
+automake --add-missing
