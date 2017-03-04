@@ -19,3 +19,11 @@ script:
     - ./bootstrap && ./configure
     - make
     - make check
+    - cd test
+    - for item in `ls -1 *.gcno`; do cp $item ${item##test_colorprint-}; done
+    - ./colorprint
+    - for item in `ls -1 *.gcda`; do cp $item ${item##test_colorprint-}; done
+    - cd .. && gcov test/test_colorprint.c
+
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
