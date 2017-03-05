@@ -9,5 +9,5 @@ include_HEADERS          = include/color.h
 # test modula
 check_PROGRAMS      = test/colorprint
 test_colorprint_SOURCES  = test/test_colorprint.c
-test_colorprint_CFLAGS   = -I$(srcdir)/include -std=c99 -coverage -O2
+test_colorprint_CFLAGS   = -I$(srcdir)/include -std=c99 -coverage
 test_colorprint_LDADD    = lib/libcolor.a
