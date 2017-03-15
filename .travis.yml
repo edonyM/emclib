@@ -20,10 +20,10 @@ script:
     - make
     - make check
     - cd test
-    - for item in `ls -1 *.gcno`; do cp $item ${item##test_colorprint-}; done
+    - python codecov.py gcno
     - ./colorprint
-    - ./strsplit
-    - for item in `ls -1 *.gcda`; do cp $item ${item##test_colorprint-}; done
+    - ./splitstr
+    - python codecov.py gcda
     - cd .. && gcov test/test_colorprint.c && gcov test/test_splitstr.c
 
 after_success:
