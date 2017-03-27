@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <include/split.h>
+#include <include/emstr.h>
 
 #define ERR  -1
 

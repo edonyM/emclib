@@ -28,4 +28,8 @@ while read LINE
 do
     rm -rf $LINE
 done < buff
+
+# cleanup test directory
+rm -rf ./test/*.gcda
+rm -rf ./test/*.gcno
 set +x
