@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <include/split.h>
+#include <include/emstr.h>
 
 #if defined(_WIN32) || defined(_WIN64)
 /* Windows */
@@ -64,7 +64,7 @@ int split(char *str, const char *delim, STRLIST *str_list) {
              tail = node1;
         }
     }
-    
+
     return counter;
 }
 
