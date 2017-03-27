@@ -7,7 +7,7 @@ lib_libcolor_a_SOURCES           = colorprint/color.c
 lib_libcolor_a_CFLAGS            = -I$(srcdir) -std=c99
 lib_libstrsplit_a_SOURCES        = string/split.c
 lib_libstrsplit_a_CFLAGS         = -I$(srcdir) -std=gnu99
-include_HEADERS                  = include/color.h include/split.h
+include_HEADERS                  = include/color.h include/emstr.h
 
 # test modula
 check_PROGRAMS           = test/colorprint test/splitstr
