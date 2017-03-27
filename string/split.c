@@ -3,6 +3,10 @@
 #include <string.h>
 #include <include/split.h>
 
+#if defined(_WIN32) || defined(_WIN64)
+/* Windows */
+#define strtok_r strtok_s
+#endif
 #define ERR  -1
 
 /*
