@@ -3,15 +3,51 @@
 #include <string.h>
 #include <include/emstr.h>
 
-#define ERR  -1
+#if defined(_WIN32) || defined(_WIN64)
+/* Windows */
+#define strtok_r strtok_s
+#endif
 
-/*
-typedef struct node{
-    struct node *next;
-    char *pstr;
-    size_t len;
-}STRLIST;
-*/
+int append(STRLIST *str_list, char *instr) {
+    if ((!str_list) || (!instr)) return -1;
+
+    emstring *string = (emstring*)malloc(sizeof(emstring));
+    if (!string) return -1;
+    string->len = strlen(instr);
+    string->pstr = (char *)malloc(string->len + 1);
+    if (!string->pstr) return -1;
+    strncpy(string->pstr, instr, string->len);
+
+    if (!str_list->str && !str_list->next) str_list->str = string;
+    else {
+        STRLIST *node = (STRLIST*)malloc(sizeof(STRLIST));
+        if (!node) return -1;
+        node->str = string;
+        node->next = NULL;
+        // insert the new node
+        STRLIST *tmp = str_list;
+        while (tmp->next) tmp = tmp->next;
+        tmp->next = node;
+    }
+
+    return 0;
+}
+
+int destroy(STRLIST *str_list) {
+    if (!str_list) return -1;
+    STRLIST *tmp = NULL;
+    while (str_list) {
+        free(str_list->str->pstr);
+        str_list->str->pstr = NULL;
+        free(str_list->str);
+        str_list->str = NULL;
+        tmp = str_list->next;
+        free(str_list);
+        str_list = tmp;
+    }
+    return 0;
+}
+
 
 int split(char *str, const char *delim, STRLIST *str_list) {
     if ((str == NULL) || (delim == NULL)) return ERR;
@@ -25,46 +61,29 @@ int split(char *str, const char *delim, STRLIST *str_list) {
     char *str_cpy = str;
     char *saveptr = NULL;
     char *str_tmp = NULL;
-    STRLIST *tmp = NULL;
-    STRLIST *tail = str_list;
+    //STRLIST *tmp = NULL;
+    //STRLIST *tail = str_list;
     int counter = 0;
 
     str_tmp = strtok_r(str_cpy, delim, &saveptr);
-    printf("%s\n", str_tmp);
 
     // new splitted node
-    STRLIST *node = (STRLIST*)malloc(sizeof(STRLIST));
-    node->pstr = (char*)malloc(strlen(str_tmp));
-    strncpy(node->pstr, str_tmp, strlen(str_tmp));
-    node->len = strlen(str_tmp);
-    node->next = NULL;
-    // insert the new node
-    tail->next = node;
-    tail = node;
+    append(str_list, str_tmp);
 
     while (str_tmp) {
         // count the splitted node
         counter++;
         str_tmp = strtok_r(NULL, delim, &saveptr);
         if (str_tmp) {
-             printf("%s\n", str_tmp);
-
              // new splitted node
-             STRLIST *node1 = (STRLIST*)malloc(sizeof(STRLIST));
-             node1->pstr = (char*)malloc(strlen(str_tmp));
-             strncpy(node1->pstr, str_tmp, strlen(str_tmp));
-             node1->len = strlen(str_tmp);
-             node1->next = NULL;
-             // insert the new node
-             tail->next = node1;
-             tail = node1;
+             append(str_list, str_tmp);
         }
     }
-    
+
     return counter;
 }
 
-char *splitem(int idx, STRLIST *str_list) {
+emstring *splitem(int idx, STRLIST *str_list) {
     if (str_list == NULL) return NULL;
 
     int counter = 0;
@@ -76,10 +95,10 @@ char *splitem(int idx, STRLIST *str_list) {
     if (idx > (counter-1) || idx < 0) return NULL;
 
     tmp = str_list;
-    for (int i=0; i < (idx+1); ++i) {
+    for (int i=0; i < idx; ++i) {
         tmp = tmp->next;
     }
-    return tmp->pstr;
+    return tmp->str;
 }
 
 /*

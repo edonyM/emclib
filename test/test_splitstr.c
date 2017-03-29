@@ -5,22 +5,22 @@
 
 int main(int argc, char *argv[])
 {
-    char str[15] = "a/bc:123:cr/tdd";
+    char str[16] = "a/bc:123:cr/tdd";
     char delim[3] = {':', '/', '\0'};
     STRLIST *result = (STRLIST*)malloc(sizeof(STRLIST));
-    result->pstr = (char*)malloc(strlen(str));
-    strncpy(result->pstr, str, strlen(str));
-    result->len = strlen(str);
+    result->str = NULL;
     result->next = NULL;
     int count = split(str, delim, result);
     printf("%d\n", count);
-    STRLIST *tmp = result->next;
+    STRLIST *tmp = result;
     while(count > 0) {
-        printf("--->%s\n", tmp->pstr);
+        printf("--->%s\n", tmp->str->pstr);
         tmp = tmp->next;
         count--;
     }
+    printf("splitem test\n");
     for (int i=0; i < 5; ++i) {
-        printf("===> %s\n", splitem(i, result));
+        printf("===> %s\n", splitem(i, result)->pstr);
     }
+    destroy(result);
 }
