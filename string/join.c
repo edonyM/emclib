@@ -1,7 +1,36 @@
 #include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include <include/emstr.h>
 
-int join(const char *str, char **delim, char *join_str) {
-    if (!str || !delim || !join_str) return -1;
+int join(const char *str, STRLIST *iter) {
+    if (!str || !iter) return ERR;
 
+    size_t sum_len = 0;
+    int counter = 0;
+
+    STRLIST *tmp = iter;
+    while (tmp) {
+        counter++;
+        sum_len += tmp->str->len;
+        tmp = tmp->next;
+    }
+    sum_len += (strlen(str) * (counter - 1) + 1);
+
+    char *result = (char*)malloc(sizeof(char) * sum_len);
+    tmp = iter;
+    int pos = 0;
+    while (tmp) {
+        for (int node_str=0; node_str < tmp->str->len; node_str++) {
+            result[pos++] = tmp->str->pstr[node_str];
+        }
+        for (int str_len = 0; str_len < strlen(str); ++str_len) {
+            result[pos++] = str[str_len];
+        }
+    }
+    result[pos] = '\0';
+    printf("result: %s\n", result);
+    append(iter, result);
+
+    return PASS;
 }
