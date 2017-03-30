@@ -9,6 +9,7 @@
 #endif
 
 int append(STRLIST *str_list, char *instr) {
+    printf("%s\n", instr);
     if ((!str_list) || (!instr)) return -1;
 
     emstring *string = (emstring*)malloc(sizeof(emstring));

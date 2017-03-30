@@ -2,6 +2,7 @@
 #define _EMSTR_H_
 
 #define ERR  -1
+#define PASS  0
 
 typedef struct _emstr{
     char *pstr;
@@ -23,5 +24,5 @@ int split(char *str, const char *delim, STRLIST *str_list);
 emstring *splitem(int idx, STRLIST *str_list);
 
 // join string interface
-char *join(const char *str, char *delim);
+int join(const char *str, STRLIST *iter);
 #endif
