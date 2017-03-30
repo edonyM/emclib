@@ -54,6 +54,6 @@ if __name__ == "__main__":
         gcno_file()
     elif sys.argv[1] == 'gcda':
         gcda_file()
-    elif sys.argv[1] = 'exec':
+    elif sys.argv[1] == 'exec':
         for cmd in exefiles:
             os.system(cmd)
