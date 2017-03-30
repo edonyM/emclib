@@ -18,8 +18,9 @@ int append(STRLIST *str_list, char *instr) {
     if (!string->pstr) return -1;
     strncpy(string->pstr, instr, string->len);
 
-    if (!str_list->str && !str_list->next) str_list->str = string;
-    else {
+    if ((!str_list->str) && (!str_list->next)) {
+        str_list->str = string;
+    } else {
         STRLIST *node = (STRLIST*)malloc(sizeof(STRLIST));
         if (!node) return -1;
         node->str = string;
@@ -92,10 +93,14 @@ emstring *splitem(int idx, STRLIST *str_list) {
         counter++;
         tmp = tmp->next;
     }
-    if (idx > (counter-1) || idx < 0) return NULL;
+    if (idx > (counter-1) || idx < (0-counter)) return NULL;
+    int index = idx;
+    if (idx < 0) {
+        index = counter + idx;
+    }
 
     tmp = str_list;
-    for (int i=0; i < idx; ++i) {
+    for (int i=0; i < index; ++i) {
         tmp = tmp->next;
     }
     return tmp->str;
