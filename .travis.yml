@@ -21,10 +21,10 @@ script:
     - make check
     - cd test
     - python codecov.py gcno
-    - ./colorprint
-    - ./splitstr
+    - python codecov.py exec
     - python codecov.py gcda
-    - cd .. && gcov test/test_colorprint.c && gcov test/test_splitstr.c
+    - cd ..
+    - for test_file in `ls ./test/test_*.c`; do gcov ${test_file}; done
 
 after_success:
     - bash <(curl -s https://codecov.io/bash)
