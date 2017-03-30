@@ -24,12 +24,13 @@ int join(const char *str, STRLIST *iter) {
         for (int node_str=0; node_str < tmp->str->len; node_str++) {
             result[pos++] = tmp->str->pstr[node_str];
         }
+        if (tmp->next == NULL) break;
         for (int str_len = 0; str_len < strlen(str); ++str_len) {
             result[pos++] = str[str_len];
         }
+        tmp = tmp->next;
     }
     result[pos] = '\0';
-    printf("result: %s\n", result);
     append(iter, result);
 
     return PASS;

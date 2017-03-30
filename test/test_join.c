@@ -10,18 +10,23 @@ int main(int argc, char *argv[]) {
 
     printf("start append:\n");
     append(strings, "edony");
-    printf("%s-->", strings->str->pstr);
+    printf("%s-->\n", strings->str->pstr);
     append(strings, "hello");
-    printf("%s-->", strings->next->str->pstr);
+    printf("%s-->%s\n", strings->str->pstr, strings->next->str->pstr);
     append(strings, "string");
-    printf("%s-->", strings->next->next->str->pstr);
+    printf("%s-->%s-->%s\n", strings->str->pstr,
+            strings->next->str->pstr, strings->next->next->str->pstr);
+    printf("finish append.\n");
 
-    join(",", strings);
+    join("::", strings);
 
     STRLIST *tmp = strings;
     while (tmp) {
-        printf("%s\n", strings->str->pstr);
+        printf("%s\n", tmp->str->pstr);
+        tmp = tmp->next;
     }
+    emstring *string = splitem(-1, strings);
+    printf("end: %s\n", string->pstr);
 
     return 0;
 }

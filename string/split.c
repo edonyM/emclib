@@ -9,6 +9,7 @@
 #endif
 
 int append(STRLIST *str_list, char *instr) {
+    printf("%s\n", instr);
     if ((!str_list) || (!instr)) return -1;
 
     emstring *string = (emstring*)malloc(sizeof(emstring));
@@ -18,7 +19,10 @@ int append(STRLIST *str_list, char *instr) {
     if (!string->pstr) return -1;
     strncpy(string->pstr, instr, string->len);
 
-    if (!str_list->str && !str_list->next) str_list->str = string;
+    if ((!str_list->str) || (!str_list->next)) {
+        printf("NULL branch\n");
+        str_list->str = string;
+    }
     else {
         STRLIST *node = (STRLIST*)malloc(sizeof(STRLIST));
         if (!node) return -1;
