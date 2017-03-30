@@ -31,7 +31,7 @@ try:
 except ImportError:
     from commands import getstatusoutput
 
-exefiles = ['./colorprint', './split', './join']
+exefiles = ['./colorprint', './splitstr', './join']
 def gcno_file():
     cmd = 'ls -1'
     stat, output = getstatusoutput(cmd)
