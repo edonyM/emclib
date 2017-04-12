@@ -1,12 +1,10 @@
 #!/bin/sh
-set -x
 sources="bootstrap \
          configure.ac \
          Makefile.am \
          LICENSE \
          README.md \
          cleanup \
-         filelist \
          colorprint \
          string \
          include \
@@ -20,6 +18,7 @@ fi
 ls . > buff
 for item in `echo "${sources}"| awk '{i=1; while(i<=NF) {print $i;i++}}'`
 do
+    echo $item
     sed -i '' "s/$item//g" buff
 done
 sed -i '' '/^$/d' buff
@@ -32,4 +31,3 @@ done < buff
 # cleanup test directory
 rm -rf ./test/*.gcda
 rm -rf ./test/*.gcno
-set +x
