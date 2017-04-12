@@ -10,7 +10,7 @@ if [ -f Makefile ]; then
     ./cleanup
 fi
 
-if [ `uname -s` == "Darwin" ]; then
+if [ "`uname -s`" = 'Darwin' ]; then
     alias libtoolize='glibtoolize'
     alias libtool='glibtool'
 fi
