@@ -20,6 +20,7 @@ fi
 ls . > buff
 for item in `echo "${sources}"| awk '{i=1; while(i<=NF) {print $i;i++}}'`
 do
+    echo $item
     sed -i '' "s/$item//g" buff
 done
 sed -i '' '/^$/d' buff

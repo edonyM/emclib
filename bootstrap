@@ -10,15 +10,19 @@ if [ -f Makefile ]; then
     ./cleanup
 fi
 
+if [ `uname -s` == "Darwin" ]; then
+    alias libtoolize='glibtoolize'
+    alias libtool='glibtool'
+fi
 
 printf "Running libtoolize......\n"
-libtoolize --install
+libtoolize --install --force --copy --warning=all
 
 printf "Running aclocal......\n"
-aclocal
+aclocal -I /usr/local/share/aclocal
 
 printf "Running autoconf......\n"
-autoconf
+autoconf -I /usr/local/share/aclocal
 
 printf "Running autoheader......\n"
 autoheader
