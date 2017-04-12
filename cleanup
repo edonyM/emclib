@@ -1,5 +1,4 @@
 #!/bin/sh
-set -x
 sources="bootstrap \
          configure.ac \
          Makefile.am \
@@ -33,4 +32,3 @@ done < buff
 # cleanup test directory
 rm -rf ./test/*.gcda
 rm -rf ./test/*.gcno
-set +x
