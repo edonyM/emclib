@@ -1,8 +1,8 @@
 #!/bin/sh
 set -e
 
-if [ ! -f filelist ]; then
-    echo `ls ./` > filelist
+if [ ! -f .filelist ]; then
+    echo `ls ./` > .filelist
 fi
 if [ -f Makefile ]; then
     make clean
