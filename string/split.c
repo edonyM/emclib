@@ -101,7 +101,8 @@ emstring *splitem(int idx, STRLIST *str_list) {
     }
 
     tmp = str_list;
-    for (int i=0; i < index; ++i) {
+    int i;
+    for (i=0; i < index; ++i) {
         tmp = tmp->next;
     }
     return tmp->str;
