@@ -16,6 +16,7 @@ install: true
 before_script:
 
 script:
+    - libtoolize --help
     - ./bootstrap && ./configure
     - make
     - make check
