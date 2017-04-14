@@ -16,7 +16,7 @@ if [ "`uname -s`" = 'Darwin' ]; then
 fi
 
 printf "Running libtoolize......\n"
-libtoolize --install --force --copy --warning=all
+libtoolize --install --force --copy --warnings=all
 
 printf "Running aclocal......\n"
 aclocal -I /usr/local/share/aclocal
