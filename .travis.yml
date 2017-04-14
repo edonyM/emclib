@@ -11,9 +11,6 @@ addons:
   apt:
     packages:
 
-before_install:
-    - sudo apt-get install -y autoconf=2.69
-    - sudo apt-get install -y libtool=2.4.6
 install: true
 
 before_script:
