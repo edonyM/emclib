@@ -1,16 +1,5 @@
 #!/bin/bash
-sources=(
-'bootstrap'
-'configure.ac'
-'Makefile.am'
-'LICENSE'
-'README.md'
-'cleanup'
-'colorprint'
-'string'
-'include'
-'test'
-)
+sources=(`cat .filelist`)
 
 if [ -f Makefile ]; then
     make clean
