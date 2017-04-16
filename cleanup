@@ -1,33 +1,31 @@
-#!/bin/sh
-sources="bootstrap \
-         configure.ac \
-         Makefile.am \
-         LICENSE \
-         README.md \
-         cleanup \
-         colorprint \
-         string \
-         include \
-         test"
+#!/bin/bash
+sources=(
+'bootstrap'
+'configure.ac'
+'Makefile.am'
+'LICENSE'
+'README.md'
+'cleanup'
+'colorprint'
+'string'
+'include'
+'test'
+)
 
 if [ -f Makefile ]; then
     make clean
     make distclean
 fi
 
-ls . > buff
-for item in `echo "${sources}"| awk '{i=1; while(i<=NF) {print $i;i++}}'`
+dir=(`ls .`)
+for item in ${dir[@]}
 do
-    echo $item
-    sed -i '' "s/$item//g" buff
+    is_in=`[[ "${sources[@]/$item/}" != "${sources[@]}" ]] && echo "in"`
+    if [ "$is_in" != "in" ]; then
+        echo $item
+        rm -irf $item
+    fi
 done
-sed -i '' '/^$/d' buff
-
-while read LINE
-do
-    rm -rf $LINE
-done < buff
-
 # cleanup test directory
 rm -rf ./test/*.gcda
 rm -rf ./test/*.gcno
