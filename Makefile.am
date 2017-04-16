@@ -1,24 +1,24 @@
-AM_CFLAGS        = -I$(srcdir)/include
-ACLOCAL_AMFLAGS  = -I m4
-AUTOMAKE_OPTIONS = foreign -Wall -Werror
+CURRENTPATH                      = ${PWD}
+AM_CFLAGS                        = -I$(CURRENTPATH)/include
+ACLOCAL_AMFLAGS                  = -I m4
+AUTOMAKE_OPTIONS                 = foreign -Wall -Werror
 
-lib_LIBRARIES                    = lib/libcolor.a lib/libstrsplit.a lib/libjoin.a
-lib_libcolor_a_SOURCES           = colorprint/color.c
-lib_libcolor_a_CFLAGS            = -I$(srcdir) -std=c99
-lib_libstrsplit_a_SOURCES        = string/split.c
-lib_libstrsplit_a_CFLAGS         = -I$(srcdir) -std=gnu99
-lib_libjoin_a_SOURCES            = string/join.c
-lib_libjoin_a_CFLAGS             = -I$(srcdir) -std=c99
+lib_LTLIBRARIES                  = lib/libcolor.la lib/libemstr.la
+lib_libcolor_la_SOURCES          = colorprint/color.c
+lib_libcolor_la_CFLAGS           = -I$(CURRENTPATH) -std=c99 -fPIC
+lib_libemstr_la_SOURCES          = string/split.c string/join.c
+lib_libemstr_la_CFLAGS           = -I$(CURRENTPATH) -std=gnu99 -fPIC
 include_HEADERS                  = include/color.h include/emstr.h
 
+
 # test modula
-check_PROGRAMS           = test/colorprint test/splitstr test/join
-test_colorprint_SOURCES  = test/test_colorprint.c
-test_colorprint_CFLAGS   = -I$(srcdir)/include -std=c99 -coverage
-test_colorprint_LDADD    = lib/libcolor.a
-test_splitstr_SOURCES    = test/test_splitstr.c
-test_splitstr_CFLAGS     = -I$(srcdir)/include -std=gnu99 -coverage
-test_splitstr_LDADD      = lib/libstrsplit.a
-test_join_SOURCES        = test/test_join.c
-test_join_CFLAGS         = -I$(srcdir)/include -std=c99 -coverage
-test_join_LDADD          = lib/libjoin.a lib/libstrsplit.a
+check_PROGRAMS                   = test/colorprint test/splitstr test/join
+test_colorprint_SOURCES          = test/test_colorprint.c
+test_colorprint_CFLAGS           = -I$(CURRENTPATH)/include -std=c99 -coverage
+test_colorprint_LDADD            = $(CURRENTPATH)/lib/libcolor.la
+test_splitstr_SOURCES            = test/test_splitstr.c
+test_splitstr_CFLAGS             = -I$(CURRENTPATH)/include -std=gnu99 -coverage
+test_splitstr_LDADD              = $(CURRENTPATH)/lib/libemstr.la
+test_join_SOURCES                = test/test_join.c
+test_join_CFLAGS                 = -I$(CURRENTPATH)/include -std=c99 -coverage
+test_join_LDADD                  = $(CURRENTPATH)/lib/libemstr.la

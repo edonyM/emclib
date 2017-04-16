@@ -21,11 +21,13 @@ int join(const char *str, STRLIST *iter) {
     tmp = iter;
     int pos = 0;
     while (tmp) {
-        for (int node_str=0; node_str < tmp->str->len; node_str++) {
+        int node_str;
+        for (node_str=0; node_str < tmp->str->len; node_str++) {
             result[pos++] = tmp->str->pstr[node_str];
         }
         if (tmp->next == NULL) break;
-        for (int str_len = 0; str_len < strlen(str); ++str_len) {
+        int str_len;
+        for (str_len = 0; str_len < strlen(str); ++str_len) {
             result[pos++] = str[str_len];
         }
         tmp = tmp->next;
