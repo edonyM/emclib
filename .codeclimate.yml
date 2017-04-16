@@ -1,8 +1,0 @@
----
-engines:
-  fixme:
-    enabled: true
-ratings:
-  paths: [colorprint include]
-exclude_paths:
-- test/

@@ -1,30 +1,32 @@
-#!/bin/sh
-set -x
-sources="bootstrap \
-         configure.ac \
-         Makefile.am \
-         LICENSE \
-         README.md \
-         cleanup \
-         filelist \
-         colorprint \
-         include \
-         test"
+#!/bin/bash
+sources=(`cat .filelist`)
+
+inarray () {
+    len=${#sources[*]}
+    i=0
+    for((i=0;i<"$len";i=i+1))
+    do
+        if [ "${sources[$i]}" = "$1" ]; then
+            return 0
+        fi
+    done
+    return 1
+}
 
 if [ -f Makefile ]; then
     make clean
     make distclean
 fi
 
-ls . > buff
-for item in `echo "${sources}"| awk '{i=1; while(i<=NF) {print $i;i++}}'`
+dir=(`ls .`)
+for item in ${dir[@]}
 do
-    sed -i '' "s/$item//g" buff
+    inarray $item
+    if [ "$?" = "1" ]; then
+        #echo $item
+        rm -irf $item
+    fi
 done
-sed -i '' '/^$/d' buff
-
-while read LINE
-do
-    rm -rf $LINE
-done < buff
-set +x
+# cleanup test directory
+rm -rf ./test/*.gcda
+rm -rf ./test/*.gcno

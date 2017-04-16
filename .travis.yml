@@ -20,10 +20,11 @@ script:
     - make
     - make check
     - cd test
-    - for item in `ls -1 *.gcno`; do cp $item ${item##test_colorprint-}; done
-    - ./colorprint
-    - for item in `ls -1 *.gcda`; do cp $item ${item##test_colorprint-}; done
-    - cd .. && gcov test/test_colorprint.c
+    - python codecov.py gcno
+    - python codecov.py exec
+    - python codecov.py gcda
+    - cd ..
+    - for test_file in `ls ./test/test_*.c`; do gcov ${test_file}; done
 
 after_success:
     - bash <(curl -s https://codecov.io/bash)
