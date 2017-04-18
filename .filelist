@@ -1,1 +1,1 @@
-string bootstrap cleanup colorprint configure.ac include LICENSE Makefile.am README.md test
+string bootstrap cleanup colorprint configure.ac include LICENSE Makefile.am README.md test tests
