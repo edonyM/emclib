@@ -30,3 +30,5 @@ done
 # cleanup test directory
 rm -rf ./test/*.gcda
 rm -rf ./test/*.gcno
+rm -rf ./tests/*.gcda
+rm -rf ./tests/*.gcno
