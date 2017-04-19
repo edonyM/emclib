@@ -10,6 +10,7 @@ dist: trusty
 addons:
   apt:
     packages:
+    - check
 
 install: true
 
@@ -19,12 +20,12 @@ script:
     - ./bootstrap && ./configure
     - make
     - make check
-    - cd test
+    - cd tests
     - python codecov.py gcno
     - python codecov.py exec
     - python codecov.py gcda
     - cd ..
-    - for test_file in `ls ./test/test_*.c`; do gcov ${test_file}; done
+    - for test_file in `ls ./tests/check_*.c`; do gcov ${test_file}; done
 
 after_success:
     - bash <(curl -s https://codecov.io/bash)
