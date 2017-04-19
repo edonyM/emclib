@@ -12,13 +12,21 @@ include_HEADERS                  = include/color.h include/emstr.h
 
 
 # test modula
-check_PROGRAMS                   = test/colorprint test/splitstr test/join
-test_colorprint_SOURCES          = test/test_colorprint.c
-test_colorprint_CFLAGS           = -I$(CURRENTPATH)/include -std=c99 -coverage
-test_colorprint_LDADD            = $(CURRENTPATH)/lib/libcolor.la
-test_splitstr_SOURCES            = test/test_splitstr.c
-test_splitstr_CFLAGS             = -I$(CURRENTPATH)/include -std=gnu99 -coverage
-test_splitstr_LDADD              = $(CURRENTPATH)/lib/libemstr.la
-test_join_SOURCES                = test/test_join.c
-test_join_CFLAGS                 = -I$(CURRENTPATH)/include -std=c99 -coverage
-test_join_LDADD                  = $(CURRENTPATH)/lib/libemstr.la
+#moddir                           = $(CURRENTPATH)/test
+#mod_PROGRAMS                     = colorprint splitstr join
+#colorprint_SOURCES               = $(moddir)/test_colorprint.c
+#colorprint_CFLAGS                = -I$(CURRENTPATH)/include -std=c99 -coverage
+#colorprint_LDADD                 = $(CURRENTPATH)/lib/libcolor.la
+#splitstr_SOURCES                 = $(moddir)/test_splitstr.c
+#splitstr_CFLAGS                  = -I$(CURRENTPATH)/include -std=gnu99 -coverage
+#splitstr_LDADD                   = $(CURRENTPATH)/lib/libemstr.la
+#join_SOURCES                     = $(moddir)/test_join.c
+#join_CFLAGS                      = -I$(CURRENTPATH)/include -std=c99 -coverage
+#join_LDADD                       = $(CURRENTPATH)/lib/libemstr.la
+
+# Process this file with automake to produce Makefile.in
+TESTS                            = tests/unittest
+check_PROGRAMS                   = tests/unittest
+tests_unittest_SOURCES           = tests/unittest.c tests/check_split.c tests/check_join.c tests/check_colorprint.c
+tests_unittest_CFLAGS            = @CHECK_CFLAGS@ -I$(CURRENTPATH) -coverage
+tests_unittest_LDADD             = $(CURRENTPATH)/lib/libemstr.la $(CURRENTPATH)/lib/libcolor.la @CHECK_LIBS@
