@@ -10,25 +10,13 @@ START_TEST(test_join) {
     strings->next = NULL;
     strings->str = NULL;
 
-    printf("start append:\n");
     append(strings, "edony");
-    printf("%s-->\n", strings->str->pstr);
     append(strings, "hello");
-    printf("%s-->%s\n", strings->str->pstr, strings->next->str->pstr);
     append(strings, "string");
-    printf("%s-->%s-->%s\n", strings->str->pstr,
-            strings->next->str->pstr, strings->next->next->str->pstr);
-    printf("finish append.\n");
 
     join("::", strings);
 
-    STRLIST *tmp = strings;
-    while (tmp) {
-        printf("%s\n", tmp->str->pstr);
-        tmp = tmp->next;
-    }
     emstring *string = splitem(-1, strings);
-    printf("end: %s\n", string->pstr);
     ck_assert(strcmp(string->pstr, "edony::hello::string") == 0);
 
 }

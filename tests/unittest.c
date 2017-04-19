@@ -13,7 +13,6 @@ int main(int argc, char *argv[])
     Suite *s;
     SRunner *sr;
 
-    s = split_suite();
     sr = srunner_create(s);
     srunner_add_suite(sr, join_suite());
     srunner_add_suite(sr, split_suite());

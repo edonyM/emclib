@@ -21,17 +21,6 @@ START_TEST(test_split) {
     ck_assert(strcmp(splitem(0, result)->pstr, "a") == 0);
     ck_assert_msg(strcmp(splitem(1, result)->pstr, "bc") == 0,
                   "Was expecting a currency of USD, but found %s", splitem(0,result)->pstr);
-    printf("%d\n", count);
-    STRLIST *tmp = result;
-    while(count > 0) {
-        printf("--->%s\n", tmp->str->pstr);
-        tmp = tmp->next;
-        count--;
-    }
-    printf("splitem test\n");
-    for (int i=0; i < 5; ++i) {
-        printf("===> %s\n", splitem(i, result)->pstr);
-    }
     destroy(result);
 }
 END_TEST
