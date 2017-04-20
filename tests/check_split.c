@@ -6,12 +6,6 @@
 #include "testsuite.h"
 
 START_TEST(test_split) {
-    //Money *m;
-
-    //m = money_create(5, "USD");
-    //ck_assert_int_eq(money_amount(m), 5);
-    //ck_assert_str_eq(money_currency(m), "USD");
-    //money_free(m);
     char str[16] = "a/bc:123:cr/tdd";
     char delim[3] = {':', '/', '\0'};
     STRLIST *result = (STRLIST*)malloc(sizeof(STRLIST));
@@ -34,8 +28,8 @@ Suite * split_suite(void)
     /* Core test case */
     tc_core = tcase_create("Core");
 
-    suite_add_tcase(s, tc_core);
     tcase_add_test(tc_core, test_split);
+    suite_add_tcase(s, tc_core);
 
     return s;
 }
