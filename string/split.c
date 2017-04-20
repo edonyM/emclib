@@ -18,6 +18,7 @@ int append(STRLIST *str_list, char *instr) {
     string->pstr = (char *)malloc(string->len + 1);
     if (!string->pstr) return -1;
     strncpy(string->pstr, instr, string->len);
+    string->pstr[string->len] = '\0';
 
     if ((!str_list->str) && (!str_list->next)) {
         str_list->str = string;
