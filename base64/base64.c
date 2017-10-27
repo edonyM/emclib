@@ -6,17 +6,28 @@
 
 char *b64_enc_str(const unsigned char *in, int in_len)
 {
+    if (NULL == in)
+        return NULL;
+    if (strlen((const char*)in) != (unsigned int)in_len)
+        return NULL;
+
 	BIO *b64;
 	BIO *bmem;
 	BUF_MEM *bptr;
 	char *out;
 
-	b64 = BIO_new(BIO_f_base64());
-	bmem = BIO_new(BIO_s_mem());
+    b64 = BIO_new(BIO_f_base64());
+    if (NULL == b64)
+        return NULL;
+    bmem = BIO_new(BIO_s_mem());
+    if (NULL == bmem)
+        return NULL;
 	b64 = BIO_push(b64, bmem);
-	BIO_write(b64, in, in_len);
+    if (BIO_write(b64, in, in_len) <= 0)
+        return NULL;
 	BIO_flush(b64);
-	BIO_get_mem_ptr(b64, &bptr);
+    BIO_get_mem_ptr(b64, &bptr);
+    BIO_set_close(b64, BIO_NOCLOSE);
 
 	out = (char*)malloc(bptr->length);
 	if (NULL == out)
@@ -30,13 +41,23 @@ char *b64_enc_str(const unsigned char *in, int in_len)
 
 int b64_enc_fp(const char *filename, const unsigned char *in, int in_len)
 {
+    if (NULL == filename || NULL == in)
+        return 1;
+    if (strlen((const char*)in) != (unsigned int)in_len)
+        return 1;
+
 	BIO *b64;
 	BIO *bmem;
 
-	b64 = BIO_new(BIO_f_base64());
-	bmem = BIO_new_file(filename, "w");
+    b64 = BIO_new(BIO_f_base64());
+    if (NULL == b64)
+        return 1;
+    bmem = BIO_new_file(filename, "w");
+    if (NULL == bmem)
+        return 1;
 	b64 = BIO_push(b64, bmem);
-	BIO_write(b64, in, in_len);
+    if (BIO_write(b64, in, in_len) <= 0)
+        return 1;
 	BIO_flush(b64);
 
     BIO_free_all(b64);
@@ -46,6 +67,11 @@ int b64_enc_fp(const char *filename, const unsigned char *in, int in_len)
 
 char *b64_dec_str(const unsigned char *in, int in_len)
 {
+    if (NULL == in)
+        return NULL;
+    if (strlen((const char*)in) != (unsigned int)in_len)
+        return NULL;
+
 	BIO *b64;
 	BIO *bmem;
 	char *out;
