@@ -30,3 +30,8 @@ check_PROGRAMS                   = tests/unittest
 tests_unittest_SOURCES           = tests/unittest.c tests/check_split.c tests/check_join.c tests/check_colorprint.c
 tests_unittest_CFLAGS            = @CHECK_CFLAGS@ -I$(CURRENTPATH) -coverage
 tests_unittest_LDADD             = $(CURRENTPATH)/lib/libemstr.la $(CURRENTPATH)/lib/libcolor.la @CHECK_LIBS@
+
+bin_PROGRAMS					 = base64/b64
+base64_b64_SOURCES				 = base64/base64.c
+base64_b64_CFLAGS				 = @CHECK_CFLAGS@ -I/usr/local/include
+base64_b64_LDADD				 = @CHECK_LIBS@ -L/usr/local/lib -lssl -lcrypto
