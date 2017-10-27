@@ -11,12 +11,18 @@ char *b64_enc_str(const unsigned char *in, int in_len)
 	BUF_MEM *bptr;
 	char *out;
 
-	b64 = BIO_new(BIO_f_base64());
-	bmem = BIO_new(BIO_s_mem());
+    b64 = BIO_new(BIO_f_base64());
+    if (NULL == b64)
+        return NULL;
+    bmem = BIO_new(BIO_s_mem());
+    if (NULL == bmem)
+        return NULL;
 	b64 = BIO_push(b64, bmem);
-	BIO_write(b64, in, in_len);
+    if (BIO_write(b64, in, in_len) <= 0)
+        return NULL;
 	BIO_flush(b64);
-	BIO_get_mem_ptr(b64, &bptr);
+    BIO_get_mem_ptr(b64, &bptr);
+    BIO_set_close(b64, BIO_NOCLOSE);
 
 	out = (char*)malloc(bptr->length);
 	if (NULL == out)
