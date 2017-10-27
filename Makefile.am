@@ -33,5 +33,5 @@ tests_unittest_LDADD             = $(CURRENTPATH)/lib/libemstr.la $(CURRENTPATH)
 
 bin_PROGRAMS					 = base64/b64
 base64_b64_SOURCES				 = base64/base64.c
-base64_b64_CFLAGS				 = @CHECK_CFLAGS@ -I/usr/local/include
-base64_b64_LDADD				 = @CHECK_LIBS@ -L/usr/local/lib -lssl -lcrypto
+base64_b64_CFLAGS				 = @CHECK_CFLAGS@
+base64_b64_LDADD				 = @CHECK_LIBS@ -lssl -lcrypto
