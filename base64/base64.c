@@ -124,6 +124,25 @@ char *b64_dec_str(const unsigned char *in, int in_len)
 	return out;
 }
 
+int b64_dec_fp(const char *filename, const unsigned char *in, int in_len)
+{
+    if (NULL == filename || NULL == in)
+        return 1;
+    if (strlen((const char*)in) != in_len)
+        return 1;
+	char *out = b64_dec_str(in, in_len);
+    if (NULL == out)
+        return 1;
+
+    BIO *bio_fp = BIO_new_file(filename, "w");
+    if (NULL == bio_fp)
+        return 1;
+    if (BIO_write(bio_fp, (void*)out, strlen(out)) <= 0)
+        return 1;
+
+    return 0;
+}
+
 int main()
 {
 	char *str = "hello edony";
@@ -134,6 +153,7 @@ int main()
 	if(0 == strcmp(str, ub64_str))
 		printf("decode success\n");
     b64_enc_fp("test_file.buff", (unsigned char*)str, strlen(str));
+    b64_dec_fp("test_dec_file.buff", (unsigned char*)b64_str, strlen(b64_str));
     
     return 0;
 }
