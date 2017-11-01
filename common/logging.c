@@ -52,13 +52,13 @@
                 __DATE__, __TIME__, __FILENAME__, \
                 __LINE__, __FUNCTION__, ##__VA_ARGS__)
 
-#define DEBUG(format, ...) \
+#define DEBUG(func, format, ...) \
         time(&CURTIME); \
         struct tm *lcl_tm=localtime(&CURTIME); \
         fprintf(stdout, "[%d-%d-%d %d:%d:%d] <INFO> %s(line %d, %s): " format, \
                 lcl_tm->tm_year+1900, lcl_tm->tm_mon, lcl_tm->tm_mday, \
                 lcl_tm->tm_hour, lcl_tm->tm_min,lcl_tm->tm_sec, \
-                __FILENAME__, __LINE__, __FUNCTION__, ##__VA_ARGS__)
+                __FILENAME__, __LINE__, func, ##__VA_ARGS__)
 
 #define INFO(format, ...) \
         fprintf(stdout, "[%s %s] <INFO> %s(line %d, %s): " format, \
@@ -83,7 +83,7 @@
 #define ERR(format, ...) fprintf(stderr, "SRC_LINE=%d " format, __LINE__, ##__VA_ARGS__)
 */
 
-void print_info(int level, const char *fmt, ...)
+void print_info(int level, const char *func, const char *fmt, ...)
 {
 	if (level == DEBUG)
 	{
@@ -94,7 +94,7 @@ void print_info(int level, const char *fmt, ...)
 		(void)vsnprintf(aMsgBuffer, sizeof(aMsgBuffer) - 1, fmt, argptr);
 		va_end (argptr);
 		aMsgBuffer[sizeof(aMsgBuffer)-1] = '\0';
-		DEBUG("%s", aMsgBuffer);
+		DEBUG(func, "%s", aMsgBuffer);
 	}
 }
 
@@ -105,5 +105,5 @@ int main() {
     int level = DEBUG;
 
     sleep(10);
-    print_info(level, "I'm edony %d\n", 111);
+    print_info(level, __FUNCTION__, "I'm edony %d\n", 111);
 }
