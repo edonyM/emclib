@@ -98,7 +98,12 @@ void print_info(int level, const char *func, const char *fmt, ...)
 	}
 }
 
+#define logging(level, fmt, ...) (print_info(level, __FUNCTION__, fmt, ##__VA_ARGS__))
 
+void test(int d) {
+    print_info(DEBUG, __FUNCTION__, "I'm OK, %d\n", d);
+    logging(DEBUG, "I'm test, %d\n", d+111);
+}
 
 int main() {
     INFO("I'm %d\n", 12);
@@ -106,4 +111,7 @@ int main() {
 
     sleep(10);
     print_info(level, __FUNCTION__, "I'm edony %d\n", 111);
+    test(128);
+    sleep(5);
+    logging(level, "EDONY is %d\n", 1024);
 }
