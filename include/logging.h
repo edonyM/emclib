@@ -18,7 +18,7 @@ enum LEVEL{NOTSET=0, DEBUG, INFO, WARNING, ERROR, CRITICAL};
 time_t CURTIME;
 struct tm *CURTIME_tm;
 
-FILE *LOGFILE = NULL;
+FILE *LOGFILE;
 
 struct log_cfg {
     unsigned int level;     // log level(e.g. enum LEVEL)
