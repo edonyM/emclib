@@ -61,7 +61,9 @@
                 CURTIME_tm->tm_hour, CURTIME_tm->tm_min, CURTIME_tm->tm_sec, \
                 LEVEL, __FILENAME__, line, func)
 
-#define FMT_C(format, ...) _PRINT_C(format, ##__VA_ARGS__)
+#define _LOG_C(level, line, func, format, ...) \
+        _FMT_C(level, line, func); \
+        _PRINT_C(format, ##__VA_ARGS__)
 
 // log into file
 #define _FMT_F(LEVEL, line, func) \
@@ -72,16 +74,24 @@
                 CURTIME_tm->tm_hour, CURTIME_tm->tm_min, CURTIME_tm->tm_sec, \
                 LEVEL, __FILENAME__, line, func)
 
-#define FMT_F(format, ...) _PRINT_F(format, ##__VA_ARGS__)
-
-// default logging
-#define _LOG_C(level, line, func, format, ...) \
-        _FMT_C(level, line, func); \
-        _PRINT_C(format, ##__VA_ARGS__)
-
 #define _LOG_F(level, line, func, format, ...) \
         _FMT_F(level, line, func); \
         _PRINT_F(format, ##__VA_ARGS__)
+
+/* customized logging */
+// log into stdout
+#define FMT_C(format, ...) _PRINT_C(format, ##__VA_ARGS__)
+
+#define LOG_C(level, line, func, format, ...) \
+        FMT_C(level, line, func); \
+        _PRINT_C(format, ##__VA_ARGS__)
+// log into file
+#define FMT_F(format, ...) _PRINT_F(format, ##__VA_ARGS__)
+
+#define LOG_F(level, line, func, format, ...) \
+        FMT_F(level, line, func); \
+        _PRINT_F(format, ##__VA_ARGS__)
+
 
 void print_c(int level, int line, const char *func, const char *fmt, ...)
 {
@@ -190,6 +200,8 @@ void print_f(const char *filename, int level, int line, const char *func, const 
 
 void test(int d) {
     debug("I'm test, %d\n", d+111);
+    char *filename = "log.txt";
+    fdebug(filename, "debug in file %p\n", filename);
 }
 
 
